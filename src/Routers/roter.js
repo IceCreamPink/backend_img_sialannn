@@ -5,7 +5,7 @@ const imageController = require("../Controllers/imageController");
 
 const router = express.Router();
 
-router.post("/create", upload.single("file"), async (req, res) => {
+router.post("/create", upload.array("file"), async (req, res) => {
   const sql =
     "INSERT INTO images (name, type, size, directory) VALUES (?,?,?,?)";
   const values = [
@@ -24,6 +24,5 @@ router.post("/create", upload.single("file"), async (req, res) => {
   }
 });
 
-router.get("/images", imageController.index);
+// router.get("/images", imageController.index);
 module.exports = router;
-    
