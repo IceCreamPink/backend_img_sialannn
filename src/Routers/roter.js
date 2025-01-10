@@ -24,5 +24,22 @@ router.post("/create", upload.array("file"), async (req, res) => {
   }
 });
 
+router.get("/images", async (req, res) => {
+  try {
+    const [rows, fields] = await koneksi.query("SELECT * FROM images");
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "No images found" });
+    }
+
+    return res.status(200).json({ images: rows });
+  } catch (err) {
+    console.error("Database error:", err);
+    return res
+      .status(500)
+      .json({ error: "Failed to fetch images", details: err.message });
+  }
+});
+
 // router.get("/images", imageController.index);
 module.exports = router;
